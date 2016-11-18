@@ -14,22 +14,28 @@ The following **required** functionality is complete:
 * [X] Settings page to change the default tip percentage.
 
 The following **optional** features are implemented:
-* [ ] UI animations
-* [t] Remembering the bill amount across app restarts (if <10mins)
+* [X] UI animations
+* [ ] Remembering the bill amount across app restarts (if <10mins)
 * [ ] Using locale-specific currency and currency thousands separators.
-* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
+* [X] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
 
-## Video Walkthrough 
-
+## Video Walkthroughs 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/9TpITLH.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Version 1
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+<img src='http://i.imgur.com/9TpITLH.gif' title='Version 1' width='' alt='Video Walkthrough' />
+
+Version 2
+
+<img src='http://i.imgur.com/Ql4hCew.gif' title='Version 2' width='' alt='Video Walkthrough' />
+
+
+GIFs created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
