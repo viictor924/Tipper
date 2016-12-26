@@ -47,17 +47,17 @@ UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func updateDefaults(_ sender: AnyObject) {
-     
+    @IBAction func updatePercentageDefaults(_ sender: AnyObject) {
+     //This function is called when a user clicks on the UISegmentControl. The function then saves the toggled percentage to the "Defaults Storage Dictionary"
         let defaults = UserDefaults.standard
         let defaultTipIndexSelected = defaultTipBar.selectedSegmentIndex
         defaults.set(defaultTipIndexSelected, forKey: "defaultTipIndexSelected")
         defaults.synchronize()
         print("Changed default Tip Index to %f", defaultTipIndexSelected )
- 
     }
+    
     func updateDefaultTipBar(){
-        
+        //This function will check the defaults settings in storage and will update the UISegmentControl to reflect the defaults
         let defaults = UserDefaults.standard
         let defaultTipIndexSelected = defaults.integer(forKey: "defaultTipIndexSelected")
         defaultTipBar.selectedSegmentIndex = defaultTipIndexSelected

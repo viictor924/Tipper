@@ -28,8 +28,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("view did load")
         
-
+        //This notification center magic calls my updateBillLabel function whenever the user enters the app.
+        NotificationCenter.default.addObserver(self, selector:#selector(ViewController.updateBillLabel), name:
+            NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
+        updateBillLabel()
+        print("updating bill label with last bill")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -58,15 +62,48 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("view did appear")
-
-        
     }
 
+    
+    
+
     @IBAction func onTap(_ sender: AnyObject) {
-        view.endEditing(true)
+        //This is commented so that keyboard doesn't disappear. I could delete the whole function but I'm keeping it on here as a placeholder in case I want to use it later.
+        //view.endEditing(true)
+    }
+    
+    func updateBillLabel(){
+        //This function should be ran every time we want to update the Bill text field with the default values.
+        //Basically, call this function whenever the user enters the app.
+        let defaults = UserDefaults.standard
+        let lastBillAmount = defaults.string(forKey: "lastBillAmount")
+      
+        let lastTimeBillWasSaved = defaults.value(forKey: "lastTimeBillWasSaved")
+        
+        //Check if lastTimeBillWas saved is nil, for example, when the user enters the app for the first time there is no "lastTimeBillWasSaved"
+        if lastTimeBillWasSaved != nil{
+            let lastTimeBillWasSaved = defaults.object(forKey: "lastTimeBillWasSaved") as! NSDate
+            print(lastTimeBillWasSaved.timeIntervalSinceNow)
+            if lastTimeBillWasSaved.timeIntervalSinceNow > -600{
+                // if Time Interval is less than 10min, update bill label with last bill saved
+                print("Bill Saved: less than 10min has passed since app was closed")
+                billLabel.text = lastBillAmount
+            }
+            else{
+                //if more than 10min, don't do anything so that label is nil
+                print("Bill Erased: more than 10min has passed since app was closed")
+                billLabel.text = nil
+            }
+            
+        }
+        
+        defaults.synchronize()
+        print("last bill was \(lastBillAmount)")
+        
     }
     
     func updateTipBar(){
+        //This function updates the Tip Bar with the default Tip Percentage setting
         let defaults = UserDefaults.standard
         let defaultTipIndex = defaults.integer(forKey: "defaultTipIndexSelected")
         tipBar.selectedSegmentIndex = defaultTipIndex
@@ -75,10 +112,22 @@ class ViewController: UIViewController {
         
     }
    
+    func updateBillDefaults(_ sender: AnyObject) {
+        //This function is called when a user clicks on the UISegmentControl. The function then saves the toggled percentage to the "Defaults Storage Dictionary"
+        let defaults = UserDefaults.standard
+        
+        let lastBillAmount = billLabel.text
+        defaults.set(lastBillAmount, forKey: "lastBillAmount")
+        
+        
+        defaults.synchronize()
+    }
+    
     @IBAction func recalculate(_ sender: AnyObject) {
-                 //beware: Hard coding position values before, if keyboard type or iOS device is changed, app won't function as intended.
+                 //beware: Hard coding position values below. If keyboard type or iOS device is changed, then app won't function as intended.
         if (billLabel.text?.isEmpty)!{
             // if field has no text
+            //move text field down and hide Tip/Total Bill
             UIView.animate(withDuration: 0.4, animations: {
                 self.billView.frame.origin.y = 200
                 self.mathView.frame.origin.y = 450
@@ -86,6 +135,7 @@ class ViewController: UIViewController {
             })
         }
         else{ // if field has text
+            //move text field up and display Tip/Total Bill
             UIView.animate(withDuration: 0.4, animations: {
                 self.billView.frame.origin.y = 100
                 self.mathView.frame.origin.y = 200
@@ -93,16 +143,24 @@ class ViewController: UIViewController {
             })
         }
         
+        //array with tip percentages in decimal format
         let tipSegments = [0.18, 0.20, 0.25]
+       
+        //make bill text field into the first responder
         billLabel.becomeFirstResponder()
         
+        //Calculate Tip and Total Bill
         let bill = Double(billLabel.text!) ?? 0
         let tip = bill * tipSegments[tipBar.selectedSegmentIndex]
         let total = bill + tip
         
-        
+        //update Tip and Total Bill labels with new values
         tipLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
+        
+       
+        //Bill amount is to be saved after any recalculation
+        updateBillDefaults(self)
         
     }
   

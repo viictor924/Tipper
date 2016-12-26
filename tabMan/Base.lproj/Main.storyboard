@@ -135,7 +135,7 @@
                                     <segment title="25%"/>
                                 </segments>
                                 <connections>
-                                    <action selector="updateDefaults:" destination="BJc-W2-A0R" eventType="valueChanged" id="c2x-nl-Qx5"/>
+                                    <action selector="updatePercentageDefaults:" destination="BJc-W2-A0R" eventType="valueChanged" id="Le1-Hd-DtR"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
