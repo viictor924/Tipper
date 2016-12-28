@@ -101,7 +101,6 @@ UIViewController {
             darkThemeLabel.textColor = lightBlue
             print("disabling dark theme")
         }
-        
     }
   
     func updateDefaultDarkTheme(){

@@ -35,6 +35,7 @@ class ViewController: UIViewController {
             NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
         updateBillLabel()
+        updateDarkTheme()
         print("updating bill label with last bill")
     }
 
@@ -116,16 +117,22 @@ class ViewController: UIViewController {
 
     func updateDarkTheme(){
         //This function enables/disables the Dark Theme according to what the user selected in the settings
-     
-  //different color options:
+        
+        let defaults = UserDefaults.standard
+        let defaultDarkTheme = defaults.bool(forKey: "darkThemeSelected")
+changeTheme(darkThemeSelected: defaultDarkTheme)
+        defaults.synchronize()
+        print("enabling light theme")
+    }
+    
+    func changeTheme(darkThemeSelected: Bool){
+        //function that holds color codes and changes theme accordingly
         let white = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         let black = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         let grayBlack = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
         let lightBlue = UIColor(red: 0.252, green: 0.507, blue: 0.969, alpha: 1.0)
         
-        let defaults = UserDefaults.standard
-        let defaultDarkTheme = defaults.bool(forKey: "darkThemeSelected")
-        if defaultDarkTheme == true {
+        if darkThemeSelected == true {
             self.view.backgroundColor = grayBlack
             billLabel.textColor = white
             tipBar.tintColor = white
@@ -133,7 +140,6 @@ class ViewController: UIViewController {
             totalLabel.textColor = white
             tipLabelTitle.textColor = white
             totalLabelTitle.textColor = white
-
             print("enabling dark theme")
         }
         else{
@@ -144,12 +150,10 @@ class ViewController: UIViewController {
             totalLabel.textColor = lightBlue
             tipLabelTitle.textColor = lightBlue
             totalLabelTitle.textColor = lightBlue
+            print("disabling dark theme")
         }
-        defaults.synchronize()
-        print("enabling light theme")
     }
     
-   
     func updateBillDefaults(_ sender: AnyObject) {
         //This function is called when a user clicks on the UISegmentControl. The function then saves the toggled percentage to the "Defaults Storage Dictionary"
         let defaults = UserDefaults.standard
