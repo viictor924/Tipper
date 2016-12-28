@@ -13,9 +13,7 @@ class SettingsViewController:
 UIViewController {
 
     @IBOutlet weak var defaultTipBar: UISegmentedControl!
-    
     @IBOutlet weak var darkThemeButton: UISwitch!
-    
     @IBOutlet weak var tipPercentageLabel: UILabel!
     @IBOutlet weak var darkThemeLabel: UILabel!
     
@@ -40,7 +38,6 @@ UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
         print("Settings view did disappear")
-    
     }
     
     override func viewDidLoad() {
@@ -56,8 +53,9 @@ UIViewController {
     @IBAction func updatePercentageDefaults(_ sender: AnyObject) {
      //This function is called when a user clicks on the UISegmentControl. The function then saves the toggled percentage to the "Defaults Storage Dictionary"
         let defaultTipIndexSelected = defaultTipBar.selectedSegmentIndex
-        
         let defaults = UserDefaults.standard
+        
+        //save user's Tip selection into the defaults dictionary
         defaults.set(defaultTipIndexSelected, forKey: "defaultTipIndexSelected")
         defaults.synchronize()
         print("Changed default Tip Index to %f", defaultTipIndexSelected )
@@ -67,10 +65,11 @@ UIViewController {
         //This function is called when a user clicks on the dark theme button. The function then saves whether the Dark theme is enabled/disabled to the "Defaults Storage Dictionary". This function will also update the settings page with the correct light/dark theme
         //different color options:
 
-        
+        //isOn returns a boolean specifying if the button is on or off
         let darkThemeSelected = darkThemeButton.isOn
-        
         let defaults = UserDefaults.standard
+        
+        //Save user's dark mode selection into the defaults dictionary.
         defaults.set(darkThemeSelected, forKey: "darkThemeSelected")
         defaults.synchronize()
         print("Is dark theme selected? \(darkThemeSelected)")
@@ -85,6 +84,7 @@ UIViewController {
         let grayBlack = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
         let lightBlue = UIColor(red: 0.252, green: 0.507, blue: 0.969, alpha: 1.0)
         
+        //If dark theme is selected, change to dark background and light text
         if darkThemeSelected == true {
             self.view.backgroundColor = grayBlack
             defaultTipBar.tintColor = white
@@ -94,6 +94,7 @@ UIViewController {
             print("enabling dark theme")
         }
         else{
+        //If dark theme is not selected, change to light background and dark text
             self.view.backgroundColor = white
             defaultTipBar.tintColor = lightBlue
             darkThemeButton.tintColor = lightBlue
