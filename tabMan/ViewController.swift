@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipBar: UISegmentedControl!
+    @IBOutlet weak var tipLabelTitle: UILabel!
+    @IBOutlet weak var totalLabelTitle: UILabel!
     
   
     @IBOutlet weak var billView: UIView!
@@ -55,6 +57,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("view will appear")
         updateTipBar()
+        updateDarkTheme()
         recalculate(self)
         
     }
@@ -109,8 +112,43 @@ class ViewController: UIViewController {
         tipBar.selectedSegmentIndex = defaultTipIndex
         defaults.synchronize()
         print("Current default Index is %f", defaultTipIndex)
-        
     }
+
+    func updateDarkTheme(){
+        //This function enables/disables the Dark Theme according to what the user selected in the settings
+     
+  //different color options:
+        let white = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        let black = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        let grayBlack = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+        let lightBlue = UIColor(red: 0.252, green: 0.507, blue: 0.969, alpha: 1.0)
+        
+        let defaults = UserDefaults.standard
+        let defaultDarkTheme = defaults.bool(forKey: "darkThemeSelected")
+        if defaultDarkTheme == true {
+            self.view.backgroundColor = grayBlack
+            billLabel.textColor = white
+            tipBar.tintColor = white
+            tipLabel.textColor = white
+            totalLabel.textColor = white
+            tipLabelTitle.textColor = white
+            totalLabelTitle.textColor = white
+
+            print("enabling dark theme")
+        }
+        else{
+            self.view.backgroundColor = white
+            billLabel.textColor = lightBlue
+            tipBar.tintColor = lightBlue
+            tipLabel.textColor = lightBlue
+            totalLabel.textColor = lightBlue
+            tipLabelTitle.textColor = lightBlue
+            totalLabelTitle.textColor = lightBlue
+        }
+        defaults.synchronize()
+        print("enabling light theme")
+    }
+    
    
     func updateBillDefaults(_ sender: AnyObject) {
         //This function is called when a user clicks on the UISegmentControl. The function then saves the toggled percentage to the "Defaults Storage Dictionary"
