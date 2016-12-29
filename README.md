@@ -23,24 +23,24 @@ The following **additional** features are implemented:
 ## Video Walkthroughs 
 Here's a walkthrough of implemented user stories:
 
-Version 1
+Version 1 <br />
 <img src='http://i.imgur.com/9TpITLH.gif' title='Version 1' width='' alt='Video Walkthrough' />
 
 
-Version 2
+Version 2 <br />
 <img src='http://i.imgur.com/Ql4hCew.gif' title='Version 2' width='' alt='Video Walkthrough' />
 
 
-Version 3
+Version 3 <br />
 <No gif since this change was remembering the bill amount across app restarts (if <10mins)
 
 
-Version 4
-<img src='http://imgur.com/LGTftCJ' title='Version 4' width='' alt='Video Walkthrough' />
+Version 4 <br />
+<img src='http://i.imgur.com/LGTftCJ.gif' title='Version 4' width='' alt='Video Walkthrough' />
 
 
-Version 5
-<img src='http://imgur.com/1GJ4Cki' title='Version 5' width='' alt='Video Walkthrough' />
+Version 5 <br />
+<img src='http://i.imgur.com/1GJ4Cki.gif' title='Version 5' width='' alt='Video Walkthrough' /> <br />
 GIFs created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
